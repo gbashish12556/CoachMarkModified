@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             .setOverlayTargetView(button_1)
             .setInfoViewBuilder(
                 CoachMarkInfo.Builder(this)
-                    .setDrawable(getDrawable(R.drawable.ic_launcher_background))
+                    .setDrawable(getDrawable(R.drawable.dummy))
                     .setMargin(30, -5, 30, 30)
             ).setSkipButtonBuilder(
                 CoachMarkSkipButton.Builder(this)
@@ -49,13 +49,10 @@ class MainActivity : AppCompatActivity() {
         coachMarkSequence.addItem(coachMarkBuilder, true)
 
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
-        coachMarkConfig.setInfoTextTypeface(TypeFace.BOLD)
-        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.ic_launcher_background))
+        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.dummy))
 
-        coachMarkConfig.setInfoTextTypeface(TypeFace.ITALIC)
-        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.ic_launcher_background))
+        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.dummy))
 
-        coachMarkConfig.setInfoTextTypeface(TypeFace.NORMAL)
         coachMarkSequence.setSequenceListener(object : SequenceListener {
             override fun onNextItem(coachMark: CoachMarkOverlay, coachMarkSeq: CoachMarkSequence) {
                 super.onNextItem(coachMark, coachMarkSequence)

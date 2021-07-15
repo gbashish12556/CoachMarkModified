@@ -55,6 +55,7 @@ class CoachMarkSequence(private val mContext: Context) {
                         }
                         overlay.removeAllViews()
                         overlay.addThreeDots(position%3)
+                        overlay.addArrow()
                         overlay.resetView()
                         mSequenceListener?.let {
                             it.onNextItem(overlay, this@CoachMarkSequence)

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.library.coachmark.R
 import com.android.library.coachmark.configuration.CoachMarkConfig
@@ -53,6 +54,7 @@ class CoachMarkOverlay : FrameLayout {
     private var mInfoView: CoachMarkInfo? = null
     private var mSkipButton: CoachMarkSkipButton? = null
     private var threeDots:ConstraintLayout? = null
+    private var arrow:ImageView? = null
 
     private fun init(builder: Builder) {
         this.setWillNotDraw(false)
@@ -66,6 +68,7 @@ class CoachMarkOverlay : FrameLayout {
             }
         }
         addThreeDots(0)
+        addArrow()
     }
 
     fun addThreeDots(position:Int){
@@ -89,6 +92,22 @@ class CoachMarkOverlay : FrameLayout {
             val margin = mBuilder.getSkipButtonBuilder()!!.getButtonMargin()
             threeDotParams.bottomMargin = 200
             layoutParams = threeDotParams
+        }
+
+    }
+
+    fun addArrow(){
+        val layoutInflater:LayoutInflater = LayoutInflater.from(context)
+        arrow = layoutInflater.inflate(R.layout.arrow_view, null) as ImageView?
+
+        // Inflate the layout using LayoutInflater
+        addView(arrow)
+        arrow?.apply {
+            val arrrowParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            arrrowParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.RIGHT or android.view.Gravity.END
+            arrrowParams.rightMargin = 50
+            arrrowParams.bottomMargin = 200
+            layoutParams = arrrowParams
         }
 
     }
