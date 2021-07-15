@@ -5,9 +5,12 @@ import android.graphics.*
 import android.os.Build
 import androidx.annotation.RequiresApi
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.library.coachmark.R
 import com.android.library.coachmark.configuration.CoachMarkConfig
 import com.android.library.coachmark.utility.Gravity
 import com.android.library.coachmark.utility.Shape
@@ -49,6 +52,7 @@ class CoachMarkOverlay : FrameLayout {
     private val mOverlayTransparentPaint = Paint()
     private var mInfoView: CoachMarkInfo? = null
     private var mSkipButton: CoachMarkSkipButton? = null
+    private var threeDots:ConstraintLayout? = null
 
     private fun init(builder: Builder) {
         this.setWillNotDraw(false)
@@ -61,7 +65,32 @@ class CoachMarkOverlay : FrameLayout {
                 mShouldRender = true
             }
         }
-        addSkipButton()
+        addThreeDots(0)
+    }
+
+    fun addThreeDots(position:Int){
+        val layoutInflater:LayoutInflater = LayoutInflater.from(context)
+        // Inflate the layout using LayoutInflater
+        when(position){
+            0 ->{
+                threeDots = layoutInflater.inflate(R.layout.three_dots_zero, null) as ConstraintLayout?
+            }
+            1 ->{
+                threeDots = layoutInflater.inflate(R.layout.three_dots_one, null) as ConstraintLayout?
+            }
+            2 ->{
+                threeDots = layoutInflater.inflate(R.layout.three_dots_two, null) as ConstraintLayout?
+            }
+        }
+        addView(threeDots)
+        threeDots?.apply {
+            val threeDotParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            threeDotParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.CENTER
+            val margin = mBuilder.getSkipButtonBuilder()!!.getButtonMargin()
+            threeDotParams.bottomMargin = 200
+            layoutParams = threeDotParams
+        }
+
     }
 
     fun addSkipButton() {
@@ -168,6 +197,9 @@ class CoachMarkOverlay : FrameLayout {
         }
     }
 
+    fun setThreeDots(){
+
+    }
     fun setSkipButton() {
         mSkipButton?.apply {
             val skipButtonParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
@@ -198,10 +230,9 @@ class CoachMarkOverlay : FrameLayout {
              * creating custom info textView.
              * */
             mInfoView = mBuilder.getInfoView()
-            mInfoView?.text = getInfoText()
             val infoTextLayoutParams = LayoutParams(
-                    getInfoViewWidth(),
-                    getInfoViewHeight()
+                    LayoutParams.MATCH_PARENT,
+                LayoutParams.WRAP_CONTENT
             )
             if (isInfoViewCenterAlignment()) {
                 infoTextLayoutParams.gravity = android.view.Gravity.CENTER
@@ -379,7 +410,7 @@ class CoachMarkOverlay : FrameLayout {
         fun getToolTip(): CoachMarkInfoToolTip? = if (mToolTipBuilder == null) null else mToolTipBuilder?.build()
         fun getToolTipBuilder(): CoachMarkInfoToolTip.Builder? = mToolTipBuilder
 
-        fun setConfig(config: CoachMarkConfig) {
+        fun setConfig(config: CoachMarkConfig): Builder {
             val overlayBuilder = config.getOverlayBuilder()
 
             this.setOriginalCustomOverlayOpacity(overlayBuilder.getOverlayOpacity())
@@ -392,6 +423,7 @@ class CoachMarkOverlay : FrameLayout {
             this.setOverlayTransparentMargin(overlayBuilder.getOverlayTransparentMargin())
             this.setOverlayTransparentPadding(overlayBuilder.getOverlayTransparentPadding())
             overlayBuilder.getOverlayClickListener()?.let { this.setOverlayClickListener(it) }
+            return this
         }
 
         fun setOverlayTargetCoordinates(left: Int, top: Int, right: Int, bottom: Int): Builder {

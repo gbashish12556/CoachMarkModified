@@ -18,52 +18,50 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        start_coach_mark?.setOnClickListener {
-            val coachMarkSequence = CoachMarkSequence(this)
-            val coachMarkBuilder = CoachMarkOverlay.Builder(this)
-                .setOverlayTargetView(button_1)
-                .setInfoViewBuilder(
-                    CoachMarkInfo.Builder(this)
-                        .setInfoText(this.getString(R.string.info_text_message))
-                        .setMargin(30, 30, 30, 30)
-                )
-                .setSkipButtonBuilder(
-                    CoachMarkSkipButton.Builder(this)
-                        .setButtonClickListener(object : CoachMarkSkipButton.ButtonClickListener {
-                            override fun onSkipButtonClick(view: View) {
-                                (window.decorView as ViewGroup).removeView(view)
-                                coachMarkSequence.clearList()
-                                start_coach_mark?.setText(R.string.start_coach_mark)
-                            }
-                        })
-                )
-            coachMarkSequence.addItem(coachMarkBuilder, true)
+        startCoachMark()
 
-            val coachMarkConfig = CoachMarkConfig(this)
-            coachMarkConfig.setInfoTextMargin(20, 20, 20, 0)
-            coachMarkSequence.setSequenceConfig(coachMarkConfig)
-            coachMarkConfig.setInfoTextTypeface(TypeFace.BOLD)
-            coachMarkSequence.addItem(button_2, "Button 2", getDrawable(R.drawable.ic_launcher_background), Gravity.END)
-            
-            coachMarkConfig.showCoachMarkToolTip(boolean = true)
-            coachMarkConfig.setInfoTextTypeface(TypeFace.ITALIC)
-            coachMarkSequence.addItem(button_3, "Button 3", getDrawable(R.drawable.ic_launcher_background), Gravity.END)
+//        start_coach_mark?.setOnClickListener {
+//        }
 
-            coachMarkConfig.setInfoTextTypeface(TypeFace.NORMAL)
-            coachMarkSequence.setSequenceListener(object : SequenceListener {
-                override fun onNextItem(coachMark: CoachMarkOverlay, coachMarkSeq: CoachMarkSequence) {
-                    super.onNextItem(coachMark, coachMarkSequence)
-                    if (coachMarkSeq.getRemainingListCount() == 0) {
-                        start_coach_mark?.setText(R.string.finish_button_text)
-                    }
-                }
-            })
-            coachMarkConfig.setInfoTextBackgroundColor(Color.CYAN)
-            coachMarkConfig.setCoachMarkToolTipColor(Color.CYAN)
-            coachMarkSequence.addItem(start_coach_mark, this.getString(R.string.exit_info_text_message), getDrawable(R.drawable.ic_launcher_background), Gravity.END)
-            start_coach_mark?.setText(R.string.continue_button_text)
-            coachMarkSequence.start(window?.decorView as ViewGroup)
-        }
+    }
 
+    private fun startCoachMark(){
+        val coachMarkSequence = CoachMarkSequence(this)
+        val coachMarkConfig = CoachMarkConfig(this)
+        coachMarkConfig.showCoachMarkToolTip(boolean = false)
+
+        val coachMarkBuilder = CoachMarkOverlay.Builder(this)
+            .setOverlayTargetView(button_1)
+            .setInfoViewBuilder(
+                CoachMarkInfo.Builder(this)
+                    .setDrawable(getDrawable(R.drawable.ic_launcher_background))
+                    .setMargin(30, -5, 30, 30)
+            ).setSkipButtonBuilder(
+                CoachMarkSkipButton.Builder(this)
+                    .setButtonClickListener(object : CoachMarkSkipButton.ButtonClickListener {
+                        override fun onSkipButtonClick(view: View) {
+                            (window.decorView as ViewGroup).removeView(view)
+                            coachMarkSequence.clearList()
+                        }
+                    })
+            )
+        coachMarkSequence.setSequenceConfig(coachMarkConfig)
+        coachMarkSequence.addItem(coachMarkBuilder, true)
+
+        coachMarkSequence.setSequenceConfig(coachMarkConfig)
+        coachMarkConfig.setInfoTextTypeface(TypeFace.BOLD)
+        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.ic_launcher_background))
+
+        coachMarkConfig.setInfoTextTypeface(TypeFace.ITALIC)
+        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.ic_launcher_background))
+
+        coachMarkConfig.setInfoTextTypeface(TypeFace.NORMAL)
+        coachMarkSequence.setSequenceListener(object : SequenceListener {
+            override fun onNextItem(coachMark: CoachMarkOverlay, coachMarkSeq: CoachMarkSequence) {
+                super.onNextItem(coachMark, coachMarkSequence)
+            }
+        })
+
+        coachMarkSequence.start(window?.decorView as ViewGroup)
     }
 }

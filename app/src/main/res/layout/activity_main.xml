@@ -37,14 +37,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="30dp"
     />
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_coach_mark"
-            android:id="@+id/start_coach_mark"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-    />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import com.android.library.coachmark.configuration.CoachMarkConfig
 import com.android.library.coachmark.utility.Gravity
@@ -16,7 +17,7 @@ import com.android.library.coachmark.utility.TypeFace
 import com.android.library.coachmark.utility.Utils
 import kotlin.math.roundToInt
 
-class CoachMarkInfo : TextView {
+class CoachMarkInfo : ImageView {
     constructor(context: Context, builder: Builder) : super(context) {
         init(builder)
     }
@@ -50,51 +51,8 @@ class CoachMarkInfo : TextView {
     private fun init(builder: Builder) {
         mBuilder = builder
         this.setWillNotDraw(false)
-        setTextSize(TypedValue.COMPLEX_UNIT_DIP, mBuilder.getTextSize())
-        setTextColor(mBuilder.getTextColor())
-        text = mBuilder.getInfoText()
-        val fontTYpeFace = mBuilder.getFontTypeface()
-        val fontStyle = mBuilder.getFontStyle()
-        when (fontTYpeFace) {
-            TypeFace.BOLD -> {
-                if (fontStyle != null) {
-                    setTypeface(fontStyle, Typeface.BOLD)
-                } else {
-                    setTypeface(null, Typeface.BOLD)
-                }
-            }
-            TypeFace.ITALIC -> {
-                if (fontStyle != null) {
-                    setTypeface(fontStyle, Typeface.ITALIC)
-                } else {
-                    setTypeface(null, Typeface.ITALIC)
-                }
-            }
-            TypeFace.BOLD_ITALIC -> {
-                if (fontStyle != null) {
-                    setTypeface(fontStyle, Typeface.BOLD_ITALIC)
-                } else {
-                    setTypeface(null, Typeface.BOLD_ITALIC)
-                }
-            }
-            TypeFace.NORMAL -> {
-                if (fontStyle != null) {
-                    setTypeface(fontStyle, Typeface.NORMAL)
-                } else {
-                    setTypeface(null, Typeface.NORMAL)
-                }
-            }
-        }
+        setImageDrawable(mBuilder.getDrawable());
         mPaint.color = mBuilder.getBackgroundColor()
-        gravity = android.view.Gravity.CENTER_VERTICAL
-        mBuilder.getDrawable()?.let {
-            when (mBuilder.getDrawablePosition()) {
-                Gravity.TOP -> setCompoundDrawablesRelativeWithIntrinsicBounds(null, it, null, null)
-                Gravity.START -> setCompoundDrawablesRelativeWithIntrinsicBounds(it, null, null, null)
-                Gravity.BOTTOM -> setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, it)
-                Gravity.END -> setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, it, null)
-            }
-        }
     }
 
     override fun onDraw(canvas: Canvas?) {

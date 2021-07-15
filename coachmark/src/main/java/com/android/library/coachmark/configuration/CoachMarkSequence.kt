@@ -18,6 +18,7 @@ class CoachMarkSequence(private val mContext: Context) {
 
     private val mSequenceQueue: Queue<CoachMarkOverlay.Builder> = LinkedList()
     private var mSequenceConfig: CoachMarkConfig? = null
+    private var position:Int = 0;
     private var mSequenceListener: SequenceListener = object : SequenceListener {
         override fun onNextItem(coachMark: CoachMarkOverlay, coachMarkSequence: CoachMarkSequence) {
             super.onNextItem(coachMark, coachMarkSequence)
@@ -36,6 +37,7 @@ class CoachMarkSequence(private val mContext: Context) {
     private val mCoachMarkOverlayClickListener: CoachMarkOverlay.OverlayClickListener =
         object : CoachMarkOverlay.OverlayClickListener {
             override fun onOverlayClick(overlay: CoachMarkOverlay) {
+                position++
                 mCoachMark = overlay
                 if (mSequenceQueue.size > 0) {
                     mSequenceItem = mSequenceQueue.poll()
@@ -52,7 +54,7 @@ class CoachMarkSequence(private val mContext: Context) {
                             overlay.mBuilder.setOverlayTargetCoordinates(getOverlayTargetCoordinates())
                         }
                         overlay.removeAllViews()
-                        overlay.addSkipButton()
+                        overlay.addThreeDots(position%3)
                         overlay.resetView()
                         mSequenceListener?.let {
                             it.onNextItem(overlay, this@CoachMarkSequence)
@@ -91,11 +93,11 @@ class CoachMarkSequence(private val mContext: Context) {
         return mSequenceQueue.size
     }
 
-    fun addItem(targetView: View, infoText: String, drawable:Drawable, drawablePoistion:com.android.library.coachmark.utility.Gravity) {
-        addItem(targetView, infoText, drawable, drawablePoistion, -1)
+    fun addItem(targetView: View, drawable:Drawable) {
+        addItem(targetView,  drawable, -1)
     }
 
-    fun addItem(targetView: View, infoText: String, drawable:Drawable, drawablePosition:com.android.library.coachmark.utility.Gravity, position: Int) {
+    fun addItem(targetView: View, drawable:Drawable, position: Int) {
         CoachMarkOverlay.Builder(mContext).apply {
             setOverlayTargetView(targetView)
             setInfoViewBuilder(CoachMarkInfo.Builder(mContext))
@@ -104,9 +106,7 @@ class CoachMarkSequence(private val mContext: Context) {
             if (mSequenceConfig != null) {
                 getInfoViewBuilder()!!.setConfig(mSequenceConfig!!)
                 getSkipButtonBuilder()!!.setConfig(mSequenceConfig!!)
-                getInfoViewBuilder()!!.setInfoText(infoText)
                 getInfoViewBuilder()!!.setDrawable(drawable)
-                getInfoViewBuilder()!!.setDrawablePosition(drawablePosition)
                 if (mSequenceConfig!!.getToolTipVisibility()) {
                     setToolTipBuilder(CoachMarkInfoToolTip.Builder(mContext))
                     if (mSequenceConfig!!.getCoachMarkToolTipBuilder() != null) {
@@ -116,8 +116,6 @@ class CoachMarkSequence(private val mContext: Context) {
                 if (getSkipButtonBuilder()!!.getButtonClickListener() == null && mSequenceConfig!!.getSkipButtonBuilder().getButtonClickListener() == null) {
                     getSkipButtonBuilder()!!.setButtonClickListener(mCoachMarkSkipButtonClickListener)
                 }
-            } else {
-                getInfoViewBuilder()!!.setInfoText(infoText)
             }
             mSequenceQueue.add(this)
         }
