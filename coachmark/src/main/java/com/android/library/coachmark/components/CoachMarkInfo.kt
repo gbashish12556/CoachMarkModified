@@ -66,7 +66,7 @@ class CoachMarkInfo : ImageView {
 
     class Builder(private val mContext: Context) {
 
-        private var mBackgroundColor: Int = Color.WHITE
+        private var mBackgroundColor: Int = Color.TRANSPARENT
         private var mCornerRadius: Float = 8f
         private var mInfoText: String = "Test"
         private var mTextColor: Int = Color.BLACK
