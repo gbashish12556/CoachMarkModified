@@ -90,8 +90,7 @@ class CoachMarkOverlay : FrameLayout {
         threeDots?.apply {
             val threeDotParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             threeDotParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.CENTER
-            val margin = mBuilder.getSkipButtonBuilder()!!.getButtonMargin()
-            threeDotParams.bottomMargin = 200
+            threeDotParams.bottomMargin = dpToPx(100)
             layoutParams = threeDotParams
         }
 
@@ -106,8 +105,8 @@ class CoachMarkOverlay : FrameLayout {
         arrow?.apply {
             val arrrowParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             arrrowParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.RIGHT or android.view.Gravity.END
-            arrrowParams.rightMargin = 50
-            arrrowParams.bottomMargin = 200
+            arrrowParams.rightMargin = dpToPx(25)
+            arrrowParams.bottomMargin = dpToPx(100)
             layoutParams = arrrowParams
         }
 
@@ -254,8 +253,8 @@ class CoachMarkOverlay : FrameLayout {
              * */
             mInfoView = mBuilder.getInfoView()
             val infoTextLayoutParams = LayoutParams(
-                    dpToPx(200),
-                dpToPx(100)
+                    dpToPx(300),
+                dpToPx(150)
             )
 //            if (isInfoViewCenterAlignment()) {
                 infoTextLayoutParams.gravity = getInfoViewAllignment()
