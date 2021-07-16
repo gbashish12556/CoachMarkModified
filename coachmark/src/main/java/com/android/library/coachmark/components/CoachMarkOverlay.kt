@@ -1,16 +1,16 @@
 package com.android.library.coachmark.components
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
 import android.os.Build
-import androidx.annotation.RequiresApi
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.library.coachmark.R
 import com.android.library.coachmark.configuration.CoachMarkConfig
@@ -239,6 +239,9 @@ class CoachMarkOverlay : FrameLayout {
 
     private val targetSize = Rect()
     private var mTooltip: CoachMarkInfoToolTip? = null
+    fun dpToPx(dp: Int): Int {
+        return (dp * Resources.getSystem().displayMetrics.density).toInt()
+    }
     private fun setInfoView() {
         if (mBuilder.getOverlayTargetView() != null) {
             mBuilder.getOverlayTargetView()?.getGlobalVisibleRect(targetSize)
@@ -251,8 +254,8 @@ class CoachMarkOverlay : FrameLayout {
              * */
             mInfoView = mBuilder.getInfoView()
             val infoTextLayoutParams = LayoutParams(
-                    LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT
+                    dpToPx(200),
+                dpToPx(100)
             )
 //            if (isInfoViewCenterAlignment()) {
                 infoTextLayoutParams.gravity = getInfoViewAllignment()
