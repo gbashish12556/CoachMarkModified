@@ -1,15 +1,13 @@
 package com.android.app.coachmark
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.android.library.coachmark.components.*
 import com.android.library.coachmark.components.listener.SequenceListener
 import com.android.library.coachmark.configuration.*
-import com.android.library.coachmark.utility.Gravity
-import com.android.library.coachmark.utility.TypeFace
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,13 +27,12 @@ class MainActivity : AppCompatActivity() {
         val coachMarkSequence = CoachMarkSequence(this)
         val coachMarkConfig = CoachMarkConfig(this)
         coachMarkConfig.showCoachMarkToolTip(boolean = false)
-
         val coachMarkBuilder = CoachMarkOverlay.Builder(this)
             .setOverlayTargetView(button_1)
             .setInfoViewBuilder(
                 CoachMarkInfo.Builder(this)
+                    .setInfoViewAllignment(Gravity.CENTER_HORIZONTAL)
                     .setDrawable(getDrawable(R.drawable.dummy))
-                    .setMargin(30, -5, 30, 30)
             ).setSkipButtonBuilder(
                 CoachMarkSkipButton.Builder(this)
                     .setButtonClickListener(object : CoachMarkSkipButton.ButtonClickListener {
@@ -45,13 +42,13 @@ class MainActivity : AppCompatActivity() {
                         }
                     })
             )
-        coachMarkSequence.setSequenceConfig(coachMarkConfig)
         coachMarkSequence.addItem(coachMarkBuilder, true)
 
-
+        coachMarkConfig.setInfoViewAllignment(Gravity.LEFT)
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
         coachMarkSequence.addItem(button_2, getDrawable(R.drawable.dummy))
 
+        coachMarkConfig.setInfoViewAllignment(Gravity.RIGHT)
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
         coachMarkSequence.addItem(button_3, getDrawable(R.drawable.dummy))
 

@@ -78,7 +78,7 @@ class CoachMarkConfig(private val mContext: Context) {
 
     fun setInfoTextDrawable(drawable: Drawable?): CoachMarkConfig {
         mInfoBuilder.setDrawable(drawable)
-        mInfoBuilder.setDrawablePosition(Gravity.END)
+        mInfoBuilder.setDrawablePosition(CoachGravity.END)
         return this
     }
 
@@ -113,8 +113,13 @@ class CoachMarkConfig(private val mContext: Context) {
         return this
     }
 
-    fun setInfoGravity(gravity: Gravity): CoachMarkConfig {
+    fun setInfoGravity(gravity: CoachGravity): CoachMarkConfig {
         mInfoBuilder.setInfoViewGravity(gravity)
+        return this
+    }
+
+    fun setInfoViewAllignment(gravity: Int): CoachMarkConfig {
+        mInfoBuilder.setInfoViewAllignment(gravity)
         return this
     }
 
@@ -148,7 +153,7 @@ class CoachMarkConfig(private val mContext: Context) {
         return this
     }
 
-    fun setOverlayTransparentGravity(gravity: Gravity): CoachMarkConfig {
+    fun setOverlayTransparentGravity(gravity: CoachGravity): CoachMarkConfig {
         mOverlayBuilder.setOverlayTransparentGravity(gravity)
         return this
     }

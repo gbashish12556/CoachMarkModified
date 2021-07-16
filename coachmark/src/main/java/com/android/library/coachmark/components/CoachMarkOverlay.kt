@@ -5,6 +5,7 @@ import android.graphics.*
 import android.os.Build
 import androidx.annotation.RequiresApi
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.library.coachmark.R
 import com.android.library.coachmark.configuration.CoachMarkConfig
-import com.android.library.coachmark.utility.Gravity
+import com.android.library.coachmark.utility.CoachGravity
 import com.android.library.coachmark.utility.Shape
 import com.android.library.coachmark.utility.ShapeType
 import com.android.library.coachmark.utility.Utils
@@ -193,19 +194,19 @@ class CoachMarkOverlay : FrameLayout {
                     }
                 }
                 when (mBuilder.getOverlayTransparentGravity()) {
-                    Gravity.CENTER -> mLayer?.drawCircle(
+                    CoachGravity.CENTER -> mLayer?.drawCircle(
                             targetViewSize.exactCenterX(),
                             targetViewSize.exactCenterY(),
                             radius,
                             mOverlayTransparentPaint
                     )
-                    Gravity.START -> mLayer?.drawCircle(
+                    CoachGravity.START -> mLayer?.drawCircle(
                             targetViewSize.left.toFloat(),
                             targetViewSize.exactCenterY(),
                             radius,
                             mOverlayTransparentPaint
                     )
-                    Gravity.END -> mLayer?.drawCircle(
+                    CoachGravity.END -> mLayer?.drawCircle(
                             targetViewSize.exactCenterX(),
                             targetViewSize.right.toFloat(),
                             radius,
@@ -250,12 +251,12 @@ class CoachMarkOverlay : FrameLayout {
              * */
             mInfoView = mBuilder.getInfoView()
             val infoTextLayoutParams = LayoutParams(
-                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT
             )
-            if (isInfoViewCenterAlignment()) {
-                infoTextLayoutParams.gravity = android.view.Gravity.CENTER
-            }
+//            if (isInfoViewCenterAlignment()) {
+                infoTextLayoutParams.gravity = getInfoViewAllignment()
+//            }
             /**
              * creating custom tooltip.
              * */
@@ -269,7 +270,7 @@ class CoachMarkOverlay : FrameLayout {
                         mBuilder.getToolTipBuilder()!!.getToolTipHeight()
                 )
                 when (getInfoViewGravity()) {
-                    Gravity.BOTTOM -> {
+                    CoachGravity.BOTTOM -> {
                         when (mBuilder.getToolTipBuilder()?.getToolTipShape()) {
                             Shape.TRIANGLE -> {
                                 lp.topMargin = targetSize.bottom + Utils.dpToPx(context, 8).roundToInt() +
@@ -299,7 +300,7 @@ class CoachMarkOverlay : FrameLayout {
                             mShouldRender = false
                         }
                     }
-                    Gravity.TOP -> {
+                    CoachGravity.TOP -> {
                         when (mBuilder.getToolTipBuilder()?.getToolTipShape()) {
                             Shape.TRIANGLE -> {
                                 lp.bottomMargin = targetSize.top - Utils.dpToPx(context, 8).roundToInt()
@@ -343,12 +344,12 @@ class CoachMarkOverlay : FrameLayout {
                 }
             } else {
                 when (getInfoViewGravity()) {
-                    Gravity.BOTTOM -> {
+                    CoachGravity.BOTTOM -> {
                         infoTextLayoutParams.topMargin =
                                 targetSize.bottom + Utils.dpToPx(context, 8).roundToInt() +
                                         mBuilder.getOverlayTransparentPadding().bottom
                     }
-                    Gravity.TOP -> {
+                    CoachGravity.TOP -> {
                         infoTextLayoutParams.bottomMargin = targetSize.top - Utils.dpToPx(
                                 context,
                                 8
@@ -396,7 +397,7 @@ class CoachMarkOverlay : FrameLayout {
         private var mOverlayTransparentShape: Shape = Shape.BOX
         private var mOverlayTransparentCircleRadius: Float = 0f
         private var mOverlayTransparentCornerRadius: Float = 8f
-        private var mOverlayTransparentGravity: Gravity = Gravity.CENTER
+        private var mOverlayTransparentGravity: CoachGravity = CoachGravity.CENTER
         private var mOverlayTransparentMargin: Rect = Rect()
         private var mOverlayTransparentPadding: Rect = Rect()
         private var mOverLayType: ShapeType = ShapeType.OUTSIDE
@@ -414,7 +415,7 @@ class CoachMarkOverlay : FrameLayout {
         fun getOverlayTransparentShape(): Shape = mOverlayTransparentShape
         fun getOverlayTransparentCircleRadius(): Float = mOverlayTransparentCircleRadius
         fun getOverlayTransparentCornerRadius(): Float = mOverlayTransparentCornerRadius
-        fun getOverlayTransparentGravity(): Gravity = mOverlayTransparentGravity
+        fun getOverlayTransparentGravity(): CoachGravity = mOverlayTransparentGravity
         fun getOverLayType(): ShapeType = mOverLayType
         fun getTabPosition(): Int = mBaseTabPosition
         fun getOverlayTransparentMargin(): Rect = mOverlayTransparentMargin
@@ -496,7 +497,7 @@ class CoachMarkOverlay : FrameLayout {
             return this
         }
 
-        fun setOverlayTransparentGravity(gravity: Gravity): Builder {
+        fun setOverlayTransparentGravity(gravity: CoachGravity): Builder {
             mOverlayTransparentGravity = gravity
             return this
         }

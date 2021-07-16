@@ -7,12 +7,10 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import android.util.AttributeSet
-import android.util.TypedValue
-import android.widget.FrameLayout
+import android.view.Gravity
 import android.widget.ImageView
-import android.widget.TextView
 import com.android.library.coachmark.configuration.CoachMarkConfig
-import com.android.library.coachmark.utility.Gravity
+import com.android.library.coachmark.utility.CoachGravity
 import com.android.library.coachmark.utility.TypeFace
 import com.android.library.coachmark.utility.Utils
 import kotlin.math.roundToInt
@@ -80,11 +78,12 @@ class CoachMarkInfo : ImageView {
         private var mTextSize: Float = 16f
         private var mInfoViewWidth: Int = 400
         private var mInfoViewHeight: Int = 100
-        private var mInfoViewGravity: Gravity = Gravity.BOTTOM
+        private var mInfoViewGravity: CoachGravity = CoachGravity.BOTTOM
+        private var mInfoViewAllignment: Int = Gravity.TOP
         private var mInfoViewCenterAlignment: Boolean = false
         private var mAttachedToTarget: Boolean = false
         private var mDrawable: Drawable? = null
-        private var mDrawablePosition: Gravity = Gravity.END
+        private var mDrawablePosition: CoachGravity = CoachGravity.END
         private var mFontTypeface: TypeFace = TypeFace.NORMAL
         private var mFontStyle: Typeface? = null
 
@@ -97,12 +96,13 @@ class CoachMarkInfo : ImageView {
         fun getTextSize(): Float = mTextSize
         fun getInfoViewWidth(): Int = mInfoViewWidth
         fun getInfoViewHeight(): Int = mInfoViewHeight
-        fun getInfoViewGravity(): Gravity = mInfoViewGravity
+        fun getInfoViewGravity(): CoachGravity = mInfoViewGravity
+        fun getInfoViewAllignment(): Int = mInfoViewAllignment
         fun isNotAttachedToTarget(): Boolean = !mAttachedToTarget
         fun isAttachedToTarget(): Boolean = mAttachedToTarget
         fun isInfoViewCenterAlignment(): Boolean = mInfoViewCenterAlignment
         fun getDrawable(): Drawable? = mDrawable
-        fun getDrawablePosition(): Gravity = mDrawablePosition
+        fun getDrawablePosition(): CoachGravity = mDrawablePosition
         fun getFontTypeface(): TypeFace = mFontTypeface
         fun getFontStyle(): Typeface? = mFontStyle
 
@@ -120,6 +120,7 @@ class CoachMarkInfo : ImageView {
             setPadding(infoBuilder.getPadding())
             setFontTypeFace(infoBuilder.getFontTypeface())
             setFontStyle(infoBuilder.getFontStyle())
+            setInfoViewAllignment(infoBuilder.getInfoViewAllignment())
         }
 
         fun setBackgroundColor(color: Int): Builder {
@@ -191,7 +192,7 @@ class CoachMarkInfo : ImageView {
             return this
         }
 
-        fun setInfoViewGravity(gravity: Gravity): Builder {
+        fun setInfoViewGravity(gravity: CoachGravity): Builder {
             mInfoViewGravity = gravity
             return this
         }
@@ -210,8 +211,12 @@ class CoachMarkInfo : ImageView {
             return this
         }
 
-        fun setDrawablePosition(position: Gravity): Builder {
+        fun setDrawablePosition(position: CoachGravity): Builder {
             mDrawablePosition = position
+            return this
+        }
+        fun setInfoViewAllignment(gravity: Int): Builder {
+            mInfoViewAllignment = gravity
             return this
         }
 

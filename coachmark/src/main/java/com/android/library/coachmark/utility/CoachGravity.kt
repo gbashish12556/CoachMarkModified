@@ -1,6 +1,6 @@
 package com.android.library.coachmark.utility
 
-enum class Gravity {
+enum class CoachGravity {
     CENTER,
     START,
     END,
