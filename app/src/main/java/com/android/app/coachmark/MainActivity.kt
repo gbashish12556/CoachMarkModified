@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             .setOverlayTargetView(button_1)
             .setInfoViewBuilder(
                 CoachMarkInfo.Builder(this)
-                    .setDrawable(getDrawable(R.drawable.dummy))
+                    .setDrawable(getDrawable(R.drawable.game_one))
                     .setMargin(30, -5, 30, 30)
             ).setSkipButtonBuilder(
                 CoachMarkSkipButton.Builder(this)
@@ -49,9 +49,9 @@ class MainActivity : AppCompatActivity() {
         coachMarkSequence.addItem(coachMarkBuilder, true)
 
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
-        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.dummy))
+        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.game_one))
 
-        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.dummy))
+        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.game_two))
 
         coachMarkSequence.setSequenceListener(object : SequenceListener {
             override fun onNextItem(coachMark: CoachMarkOverlay, coachMarkSeq: CoachMarkSequence) {

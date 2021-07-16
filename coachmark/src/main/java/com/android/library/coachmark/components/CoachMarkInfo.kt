@@ -78,8 +78,8 @@ class CoachMarkInfo : ImageView {
             Utils.dpToPx(mContext, 4).roundToInt()
         )
         private var mTextSize: Float = 16f
-        private var mInfoViewWidth: Int = FrameLayout.LayoutParams.MATCH_PARENT
-        private var mInfoViewHeight: Int = FrameLayout.LayoutParams.WRAP_CONTENT
+        private var mInfoViewWidth: Int = 50
+        private var mInfoViewHeight: Int = 20
         private var mInfoViewGravity: Gravity = Gravity.BOTTOM
         private var mInfoViewCenterAlignment: Boolean = false
         private var mAttachedToTarget: Boolean = false
