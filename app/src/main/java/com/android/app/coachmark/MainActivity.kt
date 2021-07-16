@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             .setInfoViewBuilder(
                 CoachMarkInfo.Builder(this)
                     .setInfoViewAllignment(Gravity.CENTER_HORIZONTAL)
-                    .setDrawable(getDrawable(R.drawable.game_zero))
+                    .setDrawable(getDrawable(R.drawable.overlay_zero))
             ).setSkipButtonBuilder(
                 CoachMarkSkipButton.Builder(this)
                     .setButtonClickListener(object : CoachMarkSkipButton.ButtonClickListener {
@@ -46,11 +46,11 @@ class MainActivity : AppCompatActivity() {
 
         coachMarkConfig.setInfoViewAllignment(Gravity.LEFT)
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
-        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.game_one))
+        coachMarkSequence.addItem(button_2, getDrawable(R.drawable.overlay_one))
 
         coachMarkConfig.setInfoViewAllignment(Gravity.RIGHT)
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
-        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.game_two))
+        coachMarkSequence.addItem(button_3, getDrawable(R.drawable.overlay_two))
 
         coachMarkSequence.setSequenceListener(object : SequenceListener {
             override fun onNextItem(coachMark: CoachMarkOverlay, coachMarkSeq: CoachMarkSequence) {

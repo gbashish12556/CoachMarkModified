@@ -395,7 +395,7 @@ class CoachMarkOverlay : FrameLayout {
     class Builder(private val mContext: Context) {
         private var mOverlayTargetView: View? = null
         private var mOverlayColor: Int = Color.BLACK
-        private var mOverlayOpacity: Int = 150
+        private var mOverlayOpacity: Int = 250
         private var mOverlayTransparentShape: Shape = Shape.BOX
         private var mOverlayTransparentCircleRadius: Float = 0f
         private var mOverlayTransparentCornerRadius: Float = 8f
