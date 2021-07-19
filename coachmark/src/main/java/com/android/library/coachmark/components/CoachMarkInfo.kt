@@ -50,6 +50,7 @@ class CoachMarkInfo : ImageView {
         mBuilder = builder
         this.setWillNotDraw(false)
         setImageDrawable(mBuilder.getDrawable());
+
         mPaint.color = mBuilder.getBackgroundColor()
     }
 

@@ -90,7 +90,7 @@ class CoachMarkOverlay : FrameLayout {
         threeDots?.apply {
             val threeDotParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             threeDotParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.CENTER
-            threeDotParams.bottomMargin = dpToPx(100)
+            threeDotParams.bottomMargin = dpToPx(70)
             layoutParams = threeDotParams
         }
 
@@ -106,7 +106,7 @@ class CoachMarkOverlay : FrameLayout {
             val arrrowParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
             arrrowParams.gravity = android.view.Gravity.BOTTOM or android.view.Gravity.RIGHT or android.view.Gravity.END
             arrrowParams.rightMargin = dpToPx(25)
-            arrrowParams.bottomMargin = dpToPx(100)
+            arrrowParams.bottomMargin = dpToPx(70)
             layoutParams = arrrowParams
         }
 
@@ -352,9 +352,9 @@ class CoachMarkOverlay : FrameLayout {
                                         mBuilder.getOverlayTransparentPadding().bottom
                     }
                     CoachGravity.TOP -> {
-                        infoTextLayoutParams.bottomMargin = targetSize.top - Utils.dpToPx(
+                        infoTextLayoutParams.topMargin = targetSize.top - Utils.dpToPx(
                                 context,
-                                8
+                                140
                         ).roundToInt() - mBuilder.getOverlayTransparentPadding().top
                     }
                 }

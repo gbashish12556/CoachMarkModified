@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.android.library.coachmark.components.*
 import com.android.library.coachmark.components.listener.SequenceListener
 import com.android.library.coachmark.configuration.*
+import com.android.library.coachmark.utility.CoachGravity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -48,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
         coachMarkSequence.addItem(button_2, getDrawable(R.drawable.overlay_one))
 
+        coachMarkConfig.setInfoTextMargin(0,200,0,0);
+        coachMarkConfig.setInfoGravity(CoachGravity.TOP)
         coachMarkConfig.setInfoViewAllignment(Gravity.RIGHT)
         coachMarkSequence.setSequenceConfig(coachMarkConfig)
         coachMarkSequence.addItem(button_3, getDrawable(R.drawable.overlay_two))
